@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="5dp"
+    android:gravity="center"
     >
 
-    <ListView
-        android:id="@+id/lv_popup_list"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tv_classify"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:listSelector="#00000000"
-        android:scrollbars="none"
-        android:focusableInTouchMode="true"
-         />
-
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:drawableTop="@drawable/collection"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:text="分类"/>
+    <TextView
+        android:id="@+id/tv_collection"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:drawableTop="@drawable/foot"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:drawablePadding="3dp"
+        android:text="收藏" />
+    <TextView
+        android:id="@+id/tv_track"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:drawablePadding="3dp"
+        android:textStyle="bold"
+        android:drawableTop="@drawable/foot2"
+        android:textColor="#000"
+        android:text="足迹" />
 </LinearLayout>

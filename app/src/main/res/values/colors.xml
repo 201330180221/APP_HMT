@@ -24,8 +24,10 @@
     <color name="bg_Gray">#CCCCCC</color>
     <color name="tv_Black">#000000</color>
     <color name="tv_Red">#CC0000</color>
-
-
+    <color name="material_blue_500">#5677fc</color>
+    <color name="fab_green_n">#009688</color>
+    <color name="fab_green_p">#99009688</color>
+    <color name="grey">#c0c0c0</color>
 
 
 </resources>

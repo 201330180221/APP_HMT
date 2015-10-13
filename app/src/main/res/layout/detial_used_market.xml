@@ -1,0 +1,270 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:background="@color/tab_green"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/toolbar"
+        android:id="@+id/scrollView">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+
+                android:id="@+id/picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp">
+                </android.support.v4.view.ViewPager>
+                <RadioGroup
+                    android:id="@+id/radiogroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignBottom="@+id/viewpager"
+                    android:layout_alignParentRight="true">
+                    <RadioButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/btn_1"
+                        android:clickable="false"
+                        android:checked="true" />
+                    <RadioButton
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:clickable="false"
+
+                        android:id="@+id/btn_2" />
+                    <RadioButton
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+
+                        android:layout_width="wrap_content"
+                        android:id="@+id/btn_3" />
+                    <RadioButton
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+
+                        android:layout_width="wrap_content"
+                        android:id="@+id/btn_4" />
+                    <RadioButton
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/btn_5" />
+                </RadioGroup>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/picture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="商品信息发布者"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodswho" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodswho"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="廖旺辉" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="新旧程度"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodsnew" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodsnew"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="九成新" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="每件价格"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodsprice" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodsprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="交易地点"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodsplace" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodsplace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="华山" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="付款方式"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodsway" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodsway"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="任意方式" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="商品数量"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodsnumber" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodsnumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="交易有效时间"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodstime" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodstime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015-10-22 23:28:08 现在时间是: 2015-09-23 10:27:24 " />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="商品描述"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodsdescribe" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodsdescribe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="大四不用用到单车啦～单车是宝蓝色滴～七成新吧，不过有的地方生锈了～不过重点是大轮很好踩哟！～上坡木有压力呀～什么？～腿会不会不够长？我是159的小短腿呀～
+有心动的就快点找我吧(*'▽'*)♪短号:645944～上课时间最好发信息哟"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="发表回复"
+                        android:textColor="#ffff"
+                        android:background="@drawable/android_title_bg"
+                        android:id="@+id/tv_goodsreplies" />
+                    <EditText
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_goodsreplies"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="5"
+                        android:text="" />
+                </RelativeLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="回复"
+                    android:background="@drawable/buttonselector"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/android_title_bg" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="商品评论"
+            android:textColor="#ffff"
+            />
+    </RelativeLayout>
+</RelativeLayout>

@@ -43,6 +43,8 @@
             android:theme="@style/AppTheme.Transparent" />
         <activity android:name=".activities.HmtPartitionActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activities.DetialUsedMarketActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

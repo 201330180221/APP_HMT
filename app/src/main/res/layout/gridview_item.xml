@@ -9,7 +9,6 @@
 
 
     <ImageView
-        android:src="@drawable/user_email_icon"
         android:id="@+id/partition_image"
         android:layout_width="50dp"
         android:layout_height="50dp"

@@ -94,7 +94,7 @@ public class PartitionFragment extends Fragment {
     }
 
 
-    class PartitionAdapter extends RecyclerView.Adapter<PartitionAdapter.MyViewHolder> {
+    public class PartitionAdapter extends RecyclerView.Adapter<PartitionAdapter.MyViewHolder> {
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
