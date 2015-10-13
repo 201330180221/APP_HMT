@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
+ * @author simple
  * Created by lenovo on 2015/9/4.
  */
 public class DetialUsedMarketAdapter extends PagerAdapter {
@@ -33,6 +34,7 @@ public class DetialUsedMarketAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup view, int position) {
         view.addView((View) images.get(position));
+
         return images.get(position);
     }
 
