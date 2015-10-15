@@ -129,7 +129,6 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
             case R.id.item_action_comment:
                 onClickComment();
                 break;
-
         }
     }
     /**
@@ -173,9 +172,8 @@ public class DetialHmtPostThreadsActivity extends SwipeBackActivity implements V
             area_commit.setVisibility(View.GONE);
         }
     }
-
-
 }
+
 class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
     private int space;

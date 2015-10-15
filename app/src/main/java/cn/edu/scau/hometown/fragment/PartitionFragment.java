@@ -38,9 +38,9 @@ public class PartitionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_partition, null);
+        initData();
         rcv_partition = (RecyclerView) view.findViewById(R.id.rcv_partition);
         rcv_partition.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        initData();
         rcv_partition.setAdapter(new PartitionAdapter());
         rcv_partition.addOnItemTouchListener(
                 new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -58,7 +58,7 @@ public class PartitionFragment extends Fragment {
     }
 
     private void initData() {
-        icon = new ArrayList<Integer>();
+        icon = new ArrayList<>();
         icon.add(R.drawable.user_group_icon);
         icon.add(R.drawable.partition_work);
         icon.add(R.drawable.user_course_icon);

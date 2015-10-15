@@ -1,23 +1,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:fitsSystemWindows="true"
-        android:minHeight="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways"
-        android:background="@color/tab_green"
-        />
+        android:layout_height="wrap_content"
+        >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:background="@color/tab_green" />
+
+        <RelativeLayout
+            android:id="@+id/back_1"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/titlebar_item_back_selector"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/back_image1"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="6.5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/v5_0_1_flipper_head_back" />
+
+            <TextView
+                android:id="@+id/post_subject"
+                android:layout_width="100dp"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@+id/back_image1"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="商品信息"
+                android:ellipsize="end"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/title_bar"
         android:id="@+id/scrollView">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -78,162 +109,264 @@
                 android:layout_below="@+id/picture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:orientation="vertical">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:text="商品信息发布者"
+                        android:text="商品发布者"
                         android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
+                        android:background="@color/tab_green"
                         android:id="@+id/tv_goodswho" />
                     <TextView
-                        android:layout_marginLeft="40dp"
+                        android:layout_marginLeft="25dp"
                         android:layout_toRightOf="@+id/tv_goodswho"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="廖旺辉" />
+                        android:text="廖旺辉"
+                        android:id="@+id/members_username" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    >
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="新旧程度"
                         android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
+                        android:background="@color/tab_green"
                         android:id="@+id/tv_goodsnew" />
                     <TextView
                         android:layout_marginLeft="40dp"
                         android:layout_toRightOf="@+id/tv_goodsnew"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="九成新" />
+                        android:text="九成新"
+                        android:id="@+id/secondgoods_hownew" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="每件价格"
                         android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
+                        android:background="@color/tab_green"
                         android:id="@+id/tv_goodsprice" />
                     <TextView
                         android:layout_marginLeft="40dp"
                         android:layout_toRightOf="@+id/tv_goodsprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100" />
+                        android:text="100"
+                        android:id="@+id/secondgoods_price" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginLeft="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:text="交易地点"
-                        android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
-                        android:id="@+id/tv_goodsplace" />
-                    <TextView
-                        android:layout_marginLeft="40dp"
-                        android:layout_toRightOf="@+id/tv_goodsplace"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="华山" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginLeft="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:text="付款方式"
-                        android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
-                        android:id="@+id/tv_goodsway" />
-                    <TextView
-                        android:layout_marginLeft="40dp"
-                        android:layout_toRightOf="@+id/tv_goodsway"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="任意方式" />
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="商品数量"
                         android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
+                        android:background="@color/tab_green"
                         android:id="@+id/tv_goodsnumber" />
                     <TextView
                         android:layout_marginLeft="40dp"
                         android:layout_toRightOf="@+id/tv_goodsnumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1" />
+                        android:text="1"
+                        android:id="@+id/secondgoods_goodsnums" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
-                        android:text="交易有效时间"
+                        android:text="交易类型"
                         android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
-                        android:id="@+id/tv_goodstime" />
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_tradetype" />
                     <TextView
                         android:layout_marginLeft="40dp"
-                        android:layout_toRightOf="@+id/tv_goodstime"
+                        android:layout_toRightOf="@+id/tv_tradetype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2015-10-22 23:28:08 现在时间是: 2015-09-23 10:27:24 " />
+                        android:text="收购"
+                        android:id="@+id/secondgoods_tradetype" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="交易方式"
+                        android:textColor="#ffff"
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_delivertype" />
+
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_delivertype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当面交易"
+                        android:id="@+id/secondgoods_delivertype" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="支付方式"
+                        android:textColor="#ffff"
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_paidtype" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_paidtype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="现金"
+                        android:id="@+id/secondgoods_paidtype" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="交易状态"
+                        android:textColor="#ffff"
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_efficiency" />
+
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_efficiency"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="正常交易"
+                        android:id="@+id/secondgoods_efficiency" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="联系号码"
+                        android:textColor="#ffff"
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_mobie" />
+                    <TextView
+                        android:layout_marginLeft="40dp"
+                        android:layout_toRightOf="@+id/tv_mobie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18814092620"
+                        android:id="@+id/members_mobie" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="联系 Q Q"
+                        android:textColor="#ffff"
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_qq" />
+                    <TextView
+                        android:layout_marginLeft="42dp"
+                        android:layout_toRightOf="@+id/tv_qq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="870903228"
+                        android:id="@+id/members_qqnum" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:text="交易时间至"
+                        android:textColor="#ffff"
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_pastdate" />
+                    <TextView
+                        android:layout_marginLeft="25dp"
+                        android:layout_toRightOf="@+id/tv_pastdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015-10-22 23:28:08"
+                        android:id="@+id/secondgoods_pastdate" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="商品描述"
                         android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
-                        android:id="@+id/tv_goodsdescribe" />
+                        android:background="@color/tab_green"
+                        android:id="@+id/tv_bewrite" />
                     <TextView
                         android:layout_marginLeft="40dp"
-                        android:layout_toRightOf="@+id/tv_goodsdescribe"
+                        android:layout_toRightOf="@+id/tv_bewrite"
                         android:layout_width="wrap_content"
+                        android:minLines="3"
                         android:layout_height="wrap_content"
-                        android:text="大四不用用到单车啦～单车是宝蓝色滴～七成新吧，不过有的地方生锈了～不过重点是大轮很好踩哟！～上坡木有压力呀～什么？～腿会不会不够长？我是159的小短腿呀～
-有心动的就快点找我吧(*'▽'*)♪短号:645944～上课时间最好发信息哟"/>
+                        android:text="大四不用"
+                        android:id="@+id/secondgoods_bewrite" />
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp">
                     <TextView
                         android:layout_marginLeft="20dp"
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:text="发表回复"
                         android:textColor="#ffff"
-                        android:background="@drawable/android_title_bg"
+                        android:background="@color/tab_green"
                         android:id="@+id/tv_goodsreplies" />
                     <EditText
                         android:layout_marginLeft="40dp"
@@ -258,7 +391,7 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/android_title_bg" >
+        android:background="@color/tab_green" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

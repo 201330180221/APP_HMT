@@ -44,7 +44,10 @@
         <activity android:name=".activities.HmtPartitionActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activities.DetialUsedMarketActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:theme="@style/AppTheme.Transparent"/>
+        <activity android:name=".activities.UMKGoodsInfo"/>
     </application>
 
 </manifest>

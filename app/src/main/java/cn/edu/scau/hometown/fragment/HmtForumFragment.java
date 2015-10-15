@@ -2,6 +2,7 @@ package cn.edu.scau.hometown.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,6 +39,7 @@ import cn.edu.scau.hometown.bean.HmtForumPostList;
 import cn.edu.scau.hometown.bean.ImagesGuideToThreads;
 import cn.edu.scau.hometown.listener.RecyclerItemClickListener;
 import cn.edu.scau.hometown.tools.HttpUtil;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 
 /**
@@ -57,35 +59,19 @@ public class HmtForumFragment extends Fragment {
     private HmtForumPostList hmtForumPostList;
     //论坛图片信息类
     private ImagesGuideToThreads imagesGuideToThreads;
-
     private String tid;
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRequestQueue = Volley.newRequestQueue(getActivity());
-
-
     }
-
-    @Nullable
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_hmt_forum, container, false);
         lo_swiper = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_hmt_forum);
         lo_swiper.setEnabled(false);
-
-
-        //VolleyRequestString(HttpUtil.GET_PICTURES_GUIDE_TO_THREADS, 3);
         VolleyRequestString(HttpUtil.GET_HMT_FORUM_POSTS_CONTENT_BY_FID + "36", 1);
-
         return view;
     }
-
-
-
-
     /**
      * 初始化热门帖子列表视图
      */
@@ -104,8 +90,6 @@ public class HmtForumFragment extends Fragment {
                 })
         );
     }
-
-
     private void VolleyRequestString(String url, final int searchType) {
         lo_swiper.setRefreshing(true);
         JsonObjectRequest mJsonRequest = new JsonObjectRequest(url, null,
@@ -127,8 +111,6 @@ public class HmtForumFragment extends Fragment {
                             default:
                                 break;
                         }
-
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -148,7 +130,6 @@ public class HmtForumFragment extends Fragment {
 
         mRequestQueue.add(mJsonRequest);
     }
-
     /**
      * 获取热门帖子列表数据任务
      */
@@ -159,7 +140,6 @@ public class HmtForumFragment extends Fragment {
         hmtForumPostList = gson.fromJson(json, type);
         initHmtForumListView();
     }
-
     /**
      * 获取指定的帖子的回帖数据的任务
      */
@@ -176,16 +156,11 @@ public class HmtForumFragment extends Fragment {
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
     }
-
     private void SerchPicturesAndThreadsTask(String json) {
 
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<ImagesGuideToThreads>() {
         }.getType();
         imagesGuideToThreads = gson.fromJson(json, type);
-
-
     }
-
-
 }

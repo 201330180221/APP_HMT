@@ -34,7 +34,10 @@ public class HttpUtil {
     public static final String GET_HMT_FORUM_POSTS_CONTENT_BY_FID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:thread&fid=";
     public static final String GET_PICTURES_GUIDE_TO_THREADS="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:xshow&action=image";
     public static final String GET_POST_THREADS_ATTACHMENT_BY_TID_AND_AID="http://hometown.scau.edu.cn/bbs/plugin.php?id=iltc_open:attachment&action=view&tid=";
-
+    public static final String BASE_URL_OF_USED_MARKET = "http://192.168.253.73/hometown_market/hometownMarket/index.php/Home/Api";
+    public static final String DETIAL_GOODS_URL_OF_USED_MARKET = BASE_URL_OF_USED_MARKET+"/good/id/";
+    public static final String GET_GOOD_LIST_BY_CASE = BASE_URL_OF_USED_MARKET+"/catalog/cate/";
+    public static final String SEARCH_GOOD_BY_INPUT_STRING=BASE_URL_OF_USED_MARKET+"/search/name/";
     /**
      * @param url 發送請求的url
      * @return 服務器響應請求發送的字符串
@@ -121,8 +124,6 @@ public class HttpUtil {
             @Override
             public void onResponse(Bitmap response) {
                 imageView.setImageBitmap(response);
-
-
             }
         }, 300, 200, Bitmap.Config.ARGB_4444,
                 new Response.ErrorListener() {

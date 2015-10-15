@@ -4,28 +4,57 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
+import android.widget.Toast;
+
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import cn.edu.scau.hometown.R;
 import cn.edu.scau.hometown.activities.DetialUsedMarketActivity;
+import cn.edu.scau.hometown.activities.UMKGoodsInfo;
 import cn.edu.scau.hometown.adapter.InitUsedMarketListAdapter;
+import cn.edu.scau.hometown.bean.GoodLinkMan;
+import cn.edu.scau.hometown.bean.GoodsInfo;
 import cn.edu.scau.hometown.bean.UsedGoodsBaseData;
+import cn.edu.scau.hometown.listener.RecyclerItemClickListener;
+import cn.edu.scau.hometown.listener.UsedMarkGoodDetialSearchListener;
+import cn.edu.scau.hometown.listener.UsedMarketBaseSearchListener;
+import cn.edu.scau.hometown.listener.UsedMarketMianImageListener;
+import cn.edu.scau.hometown.tools.HttpUtil;
+import cn.edu.scau.hometown.tools.UsedMarketHttpUtil;
 import fab.FloatingActionButton;
 
 
@@ -34,32 +63,33 @@ import fab.FloatingActionButton;
  * @author simple
  */
 public class SecondaryMarketFragment extends Fragment {
-    TextView tv_classify,tv_track,tv_collection;
-    Dialog dialog;
-    View lvFoot;
-    View layout;
-    View contentview ;
-    List<UsedGoodsBaseData> data = new ArrayList<>();
+    private TextView tv_classify,tv_track,tv_collection;
+    private Dialog dialog;
     private SwipeRefreshLayout lo_swiper;
+    private ArrayList<Integer> icon;
+    private ArrayList<String> iconName;
+    private View layout;
+    private View contentview ;
+    private List<UsedGoodsBaseData> datas = new ArrayList<>();
     private View view;
-    private ListView listView;
-    //首页轮播的界面的资源
-    private ArrayList<View> allListView;
-    // 相片的载入
-    InitUsedMarketListAdapter adapter;
-    FloatingActionButton floatingActionButton;
+    private RecyclerView listView;
+    //Volley网络请求会用到的工具
+    private RequestQueue mRequestQueue;
+    private InitUsedMarketListAdapter adapter;
+    private FloatingActionButton floatingActionButton;
     private PopupWindow pwMyPopWindow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mRequestQueue = Volley.newRequestQueue(getActivity());
+        initClassifyDialogData();
+        initMainData();
 
-        for (int i = 0 ; i <10;i++){
-            data.add(new UsedGoodsBaseData());
-        }
     }
 
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_secondary_market,container,false);
         view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -75,7 +105,7 @@ public class SecondaryMarketFragment extends Fragment {
         contentview = view.findViewById(R.id.nu);
 
         floatingActionButton = (FloatingActionButton)view.findViewById(R.id.fab);
-        floatingActionButton.attachToListView(listView);
+        floatingActionButton.attachToRecyclerView(listView);
         floatingActionButton.setFocusable(true);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,15 +122,11 @@ public class SecondaryMarketFragment extends Fragment {
         return  view;
     }
 
-
-
     @SuppressLint("InflateParams")
     private void iniButtonPopupWindow() {
 
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         layout = inflater.inflate(R.layout.task_detail_popupwindow, null);
-
-
         tv_classify = (TextView)layout.findViewById(R.id.tv_classify);
         tv_classify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,9 +138,6 @@ public class SecondaryMarketFragment extends Fragment {
 
             }
         });
-
-
-
         tv_collection = (TextView) layout.findViewById(R.id.tv_collection);
         tv_collection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,30 +170,101 @@ public class SecondaryMarketFragment extends Fragment {
     }
 
     private void  initListView(){
-        listView = (ListView) view.findViewById(R.id.lv_used_maket);
-        lvFoot = getActivity().getLayoutInflater().inflate(R.layout.listview_foot_used_market,null);
-        lvFoot.setOnClickListener(new View.OnClickListener() {
+
+        listView = (RecyclerView) view.findViewById(R.id.lv_used_maket);
+        listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                refleshMoreData(data.size(), 10);
+            public void onItemClick(View view, int position) {
+                mRequestQueue.add(UsedMarketHttpUtil.getUMKGoodDetialInfo(datas.get(position).getSecondgoods_id(), new UsedMarkGoodDetialSearchListener() {
+                    @Override
+                    public void succee(GoodsInfo data) {
+
+                        Intent intent = new Intent(getActivity(), DetialUsedMarketActivity.class);
+                        Bundle b = new Bundle();
+                        b.putSerializable("GoodInfo",data);
+                        intent.putExtras(b);
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.keep);
+                    }
+
+                    @Override
+                    public void failor(Exception e) {
+                        Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void error(VolleyError error) {
+                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
+                    }
+                }));
+
+            }
+        }));
+        adapter = new InitUsedMarketListAdapter( datas, new UsedMarketMianImageListener() {
+            @Override
+            public void setImage(ImageView image,String url) {
+                if (!url.equals("")&&url!=null){
+                    mRequestQueue.add(UsedMarketHttpUtil.getUMKMainImage(url,300,300, Bitmap.Config.RGB_565,image));
+                }
             }
         });
-        listView.addFooterView(lvFoot);
-
-        adapter = new InitUsedMarketListAdapter(getActivity(),data);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), DetialUsedMarketActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
+    private void initClassifyDialogData() {
+        icon = new ArrayList<>();
+        icon.add(R.drawable.user_group_icon);
+        icon.add(R.drawable.partition_work);
+        icon.add(R.drawable.user_course_icon);
+        icon.add(R.drawable.partition_sea);
+        icon.add(R.drawable.partition_tiyu);
+        icon.add(R.drawable.partition_music);
+        icon.add(R.drawable.partition_movie);
 
+
+        iconName = new ArrayList<>();
+        iconName.add("数码类");
+        iconName.add("招聘兼职");
+        iconName.add("房屋租赁");
+        iconName.add("日常用品");
+        iconName.add("二手单车");
+        iconName.add("书摊");
+        iconName.add("其他");
+
+    }
+
+    private void initMainData(){
+        mRequestQueue.add(UsedMarketHttpUtil.getMainData(new UsedMarketBaseSearchListener() {
+            @Override
+            public void success(List<UsedGoodsBaseData> datas) {
+                SecondaryMarketFragment.this.datas.clear();
+                for (UsedGoodsBaseData data : datas){
+                    SecondaryMarketFragment.this.datas.add(data);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void error(VolleyError error) {
+                Toast.makeText(getActivity(),error.toString(),Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void failor(Exception e) {
+                Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_SHORT).show();
+            }
+        }));
     }
 
     private void initDialog() {
         View view = getActivity().getLayoutInflater().inflate(R.layout.classify_dialog, null);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rcv_classify);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),4));
+        recyclerView.setAdapter(new RcvDialogAdater());
+
+
         dialog = new Dialog(getActivity(), R.style.transparentFrameWindowStyle);
         dialog.setContentView(view, new LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT));
@@ -186,21 +280,15 @@ public class SecondaryMarketFragment extends Fragment {
         dialog.setCanceledOnTouchOutside(true);
     }
 
-    private void refleshMoreData(int size,int num){
-        for (int i = size;i<size+num;i++){
 
-            data.add(new UsedGoodsBaseData());
-        }
-
-        adapter.notifyDataSetChanged();
-    }
 
 
     private void initLayoutSwiper() {
         lo_swiper = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container_used_market);
         lo_swiper.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             public void onRefresh() {
-
+                initMainData();
+                lo_swiper.setRefreshing(false);
             }
         });
 
@@ -211,4 +299,69 @@ public class SecondaryMarketFragment extends Fragment {
     }
 
 
+    /**
+     * 分类查询面板内的RecycleView 的 适配器
+     */
+    public class RcvDialogAdater extends RecyclerView.Adapter<RcvDialogAdater.MyViewHolder> {
+
+        @Override
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
+                    getActivity()).inflate(R.layout.gridview_item, parent,
+                    false));
+            return holder;
+        }
+
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
+            holder.partition_tv.setText(iconName.get(position));
+            holder.partition_image.setImageDrawable(getResources().getDrawable(icon.get(position)));
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    lo_swiper.setRefreshing(true);
+                    mRequestQueue.add(UsedMarketHttpUtil.getClassifyData(position+8 , new UsedMarketBaseSearchListener() {
+                        @Override
+                        public void success(List<UsedGoodsBaseData> datas) {
+                            SecondaryMarketFragment.this.datas.clear();
+                            for (UsedGoodsBaseData data : datas) {
+                                SecondaryMarketFragment.this.datas.add(data);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void error(VolleyError error) {
+                            Toast.makeText(getActivity(),"Error",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void failor(Exception e) {
+                            Toast.makeText(getActivity(),"failor",Toast.LENGTH_SHORT).show();
+
+                        }
+                    }));
+                    lo_swiper.setRefreshing(false);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return iconName.size();
+        }
+
+        class MyViewHolder extends RecyclerView.ViewHolder {
+
+            TextView partition_tv;
+            ImageView partition_image;
+            View view;
+            public MyViewHolder(View view) {
+                super(view);
+                this.view= view;
+                partition_tv = (TextView) view.findViewById(R.id.partition_text);
+                partition_image = (ImageView) view.findViewById(R.id.partition_image);
+            }
+        }
+    }
 }
